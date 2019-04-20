@@ -13,13 +13,13 @@ var searchPrompt = process.argv;
 var artistSearch = searchPrompt.slice(3).join("");
 var movieSearch = searchPrompt.slice(3).join("+");
 var spotifySearch = searchPrompt.slice(3).join("+");
-/*fs.readFile("random.txt", "utf-8", (err, data) => {
+fs.readFile("random.txt", "utf-8", (err, data) => {
     if (err) throw err;
     console.log(data);
-});*/
+});
 //-------------------- WORK IN PROGRESS-------------------------------------------
 // DO-WHAT-IT-SAYS ARGUMENT
-/*if (searchPrompt[2] === "do-what-it-says") {
+if (searchPrompt[2] === "do-what-it-says") {
     fs.readFile("random.txt", "utf-8", (err, data) => {
         if (err) throw err;
         var doSpoty = data.split(" ");
