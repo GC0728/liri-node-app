@@ -7,28 +7,25 @@ var moment = require("moment");
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
 var fs = require("fs");
-console.log("-------");
 // GLOBALS
 var searchPrompt = process.argv;
 var artistSearch = searchPrompt.slice(3).join("");
 var movieSearch = searchPrompt.slice(3).join("+");
 var spotifySearch = searchPrompt.slice(3).join("+");
-fs.readFile("random.txt", "utf-8", (err, data) => {
+/* fs.readFile("random.txt", "utf-8", (err, data) => {
     if (err) throw err;
-//    console.log(data);
-});
+}); */
 //-------------------- WORK IN PROGRESS-------------------------------------------
 // DO-WHAT-IT-SAYS ARGUMENT
 if (searchPrompt[2] === "do-what-it-says") {
     fs.readFile("random.txt", "utf-8", (err, data) => {
         if (err) throw err;
-        var doSpoty = data.split(",");
-        var doSpoty2 = doSpoty[1].t;
-    //    console.log(doSpoty2);
+        var doSpoty = data.split('"')
+        var doSpotySearch = doSpoty[1];
     spotify
-    .search({type: "track", query: data})
+    .search({type: "track", query: doSpotySearch})
     .then(function(songResponse) {
-    //    console.log(songResponse);
+     //   console.log(songResponse);
         var artistName = songResponse.tracks.items[0].album.artists[0].name;
         var songName = songResponse.tracks.items[0].name;
         var albumName = songResponse.tracks.items[0].album.name;
