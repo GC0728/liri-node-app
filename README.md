@@ -6,10 +6,13 @@ liri-node-app is an application that allows its user to obtain information perta
 
 This application operates via the Command Line Interace and takes in a maximum of two arguments. The first argument determines which database that liri will query with the second argument. The second argument is user's search term(s). There are four possible first arguments and they are as follows:
 
+
 1. `concert-this``
 2. `do-what-it-says``
 3. `movie-this``
 4. `spotify-this-song``
+
+Please be advised that screen shots of functioning examples of each argument can be found at (./assets/images).
 
 ---`concert-this``---
 Entering `concert-this`` as your first argument allows liri to query bandsintown to obtain a music artist's current tour schedule. Information that will be displayed include the date and location of each individual event as well as the name of the venue that the show will be located.

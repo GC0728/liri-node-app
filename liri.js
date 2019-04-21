@@ -15,20 +15,20 @@ var movieSearch = searchPrompt.slice(3).join("+");
 var spotifySearch = searchPrompt.slice(3).join("+");
 fs.readFile("random.txt", "utf-8", (err, data) => {
     if (err) throw err;
-    console.log(data);
+//    console.log(data);
 });
 //-------------------- WORK IN PROGRESS-------------------------------------------
 // DO-WHAT-IT-SAYS ARGUMENT
 if (searchPrompt[2] === "do-what-it-says") {
     fs.readFile("random.txt", "utf-8", (err, data) => {
         if (err) throw err;
-        var doSpoty = data.split(" ");
-        var doSpoty2 = doSpoty[0].slice(19, 20);
-        console.log(doSpoty2);
+        var doSpoty = data.split(",");
+        var doSpoty2 = doSpoty[1].t;
+    //    console.log(doSpoty2);
     spotify
     .search({type: "track", query: data})
     .then(function(songResponse) {
-     //   console.log(songResponse);
+    //    console.log(songResponse);
         var artistName = songResponse.tracks.items[0].album.artists[0].name;
         var songName = songResponse.tracks.items[0].name;
         var albumName = songResponse.tracks.items[0].album.name;
@@ -41,7 +41,7 @@ if (searchPrompt[2] === "do-what-it-says") {
         `)
     });
 });
-};*/
+};
 //-----------------------COMPLETED-------------------------------
 // SPOTIFY API LINK
 console.log("-------");
@@ -93,35 +93,7 @@ if (searchPrompt[2] === "spotify-this-song") {
         }); 
  }; 
  // OMDB API
-  if (searchPrompt[2] === "movie-this") {
-    axios
-        .get(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${movieSearch}`)
-        .then(function(movieResponse) {
-          var movieResults = movieResponse.data;
-              console.log(`
-              Title: ${movieResults.Title}
-              Release: ${movieResults.Year}
-              IMDB Score: ${movieResults.Ratings[0].Value}
-              Rotten Rating: ${movieResults.Ratings[1].Value}
-              Country of Origin: ${movieResults.Country}
-              Language: ${movieResults.Language}
-              Plot: ${movieResults.Plot}
-              Actors: ${movieResults.Actors}
-              `); 
-        })
-        .catch(function(error) {
-            if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.data.status);
-                console.log(error.response.data.header);
-            } else if (error.request) {
-                console.log(error.request);
-            } else {
-                console.log("Error", error.message)
-            }
-            console.log(error.config)
-        }); 
-  } if (searchPrompt[2] === "movie-this");
+ if (searchPrompt[2] === "movie-this" && searchPrompt[3] === undefined) {
         axios
         .get(`http://www.omdbapi.com/?apikey=${omdbKey}&t=Mr.+Nobody`)
         .then(function(nobodyResponse) {
@@ -136,6 +108,35 @@ if (searchPrompt[2] === "spotify-this-song") {
             Plot: ${mrNobody.Plot}
             Actors: ${mrNobody.Actors}
             `);
-        } 
-        ); 
+        }); 
+    } else if (searchPrompt[2] === "movie-this") 
+        axios
+            .get(`http://www.omdbapi.com/?apikey=${omdbKey}&t=${movieSearch}`)
+            .then(function(movieResponse) {
+              var movieResults = movieResponse.data;
+         //     console.log(movieResults);
+                  console.log(`
+                  Title: ${movieResults.Title}
+                  Release: ${movieResults.Year}
+                  IMDB Score: ${movieResults.Ratings[0].Value}
+                  Rotten Rating: ${movieResults.Ratings[1].Value}
+                  Country of Origin: ${movieResults.Country}
+                  Language: ${movieResults.Language}
+                  Plot: ${movieResults.Plot}
+                  Actors: ${movieResults.Actors}
+                  `); 
+            })
+            .catch(function(error) {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.data.status);
+                    console.log(error.response.data.header);
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log("Error", error.message)
+                }
+                console.log(error.config)
+            }); 
+
 //---------------------------------------------------------------
